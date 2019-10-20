@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.Controller">
+   <center>
+      <StackPane BorderPane.alignment="CENTER">
+         <children>
+            <LineChart fx:id="chart" title="Cost behavior">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis side="LEFT" />
+              </yAxis>
+            </LineChart>
+         </children>
+      </StackPane>
+   </center>
+   <left>
+      <TableView editable="true" prefWidth="222.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn fx:id="activityColumn" maxWidth="-1.0" minWidth="120.0" prefWidth="-1.0" text="Activity level" />
+          <TableColumn fx:id="costColumn" maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" text="Cost" />
+        </columns>
+      </TableView>
+   </left>
+</BorderPane>

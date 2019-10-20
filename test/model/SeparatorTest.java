@@ -46,4 +46,15 @@ public class SeparatorTest {
 		assertTrue(Math.abs(expectedVariablePerUnit - halp[1]) < 0.00000000001, "The variable cost per unit is not correct");
 	}
 
+	@Test
+	public void linearRegression() {
+		setupStage3();
+		//values found using linear regression in Desmos.com/calculator, a reliable online graphing calculator
+		double expectedFixed = 0.545454545455;
+		double expectedVariablePerUnit = 0.636363636364;
+		
+		double[] lr = sep.linearRegression();
+		assertTrue(Math.abs(expectedFixed-lr[0]) < 0.00000000001);
+		assertTrue(Math.abs(expectedVariablePerUnit-lr[1]) < 0.00000000001);
+	}
 }
