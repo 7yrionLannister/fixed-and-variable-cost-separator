@@ -1,19 +1,19 @@
 package model;
 
 public class Record implements Comparable<Record>{
-	private int activityLevel;
+	private double activityLevel;
 	private double totalCost;
 	
-	public Record(int activityLevel, double totalCost) {
+	public Record(double activityLevel, double totalCost) {
 		this.activityLevel = activityLevel;
 		this.totalCost = totalCost;
 	}
 	
-	public int getActivityLevel() {
+	public double getActivityLevel() {
 		return activityLevel;
 	}
 	
-	public void setActivityLevel(int activityLevel) {
+	public void setActivityLevel(double activityLevel) {
 		this.activityLevel = activityLevel;
 	}
 	
@@ -26,7 +26,12 @@ public class Record implements Comparable<Record>{
 	}
 
 	@Override
+	public boolean equals(Object another) {
+		Record a = (Record)another; //throws exception if another is not a record
+		return a.activityLevel == activityLevel && a.totalCost == totalCost;
+	}
+	@Override
 	public int compareTo(Record r) {
-		return activityLevel - r.activityLevel;
+		return Double.compare(activityLevel, r.activityLevel);
 	}
 }

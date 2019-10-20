@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.FXCollections;
+
 public class SeparatorTest {
 	private Separator sep;
 	private int highActivity;
@@ -16,11 +18,11 @@ public class SeparatorTest {
 	}
 
 	private void setupStage2() {
-		sep = new Separator();
+		sep = new Separator(FXCollections.observableArrayList());
 	}
 
 	private void setupStage3() {
-		sep = new Separator();
+		sep = new Separator(FXCollections.observableArrayList());
 		lowActivity = 1;
 		lowCost = 1;
 		highActivity = 14;

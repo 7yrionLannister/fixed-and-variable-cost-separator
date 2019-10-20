@@ -1,21 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.Controller">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="562.0" prefWidth="916.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.Controller">
    <center>
       <StackPane BorderPane.alignment="CENTER">
          <children>
             <LineChart fx:id="chart" title="Cost behavior">
               <xAxis>
-                <CategoryAxis side="BOTTOM" />
+                <NumberAxis side="BOTTOM" />
               </xAxis>
               <yAxis>
                 <NumberAxis side="LEFT" />
@@ -25,11 +31,64 @@
       </StackPane>
    </center>
    <left>
-      <TableView editable="true" prefWidth="222.0" BorderPane.alignment="CENTER">
-        <columns>
-          <TableColumn fx:id="activityColumn" maxWidth="-1.0" minWidth="120.0" prefWidth="-1.0" text="Activity level" />
-          <TableColumn fx:id="costColumn" maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" text="Cost" />
-        </columns>
-      </TableView>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <TableView fx:id="table" editable="true" prefWidth="222.0">
+              <columns>
+                <TableColumn fx:id="activityColumn" maxWidth="-1.0" minWidth="120.0" prefWidth="-1.0" text="Activity level" />
+                <TableColumn fx:id="costColumn" maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" text="Cost" />
+              </columns>
+            </TableView>
+            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#clear" text="Clear" />
+            <HBox prefWidth="200.0">
+               <children>
+                  <TextField fx:id="activityLevelIn" onKeyTyped="#onlyIntegers" promptText="Activity level" />
+                  <TextField fx:id="costIn" onKeyTyped="#onlyIntegers" promptText="Cost" />
+               </children>
+            </HBox>
+            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#include" text="Include" />
+            <HBox prefWidth="200.0">
+               <children>
+                  <TextField fx:id="activityLevelOut" onKeyTyped="#onlyIntegers" promptText="Activity level" />
+                  <TextField fx:id="costOut" onKeyTyped="#onlyIntegers" promptText="Cost" />
+               </children>
+            </HBox>
+            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#exclude" text="Exclude" />
+            <VBox spacing="15.0">
+               <children>
+                  <RadioButton fx:id="halp" mnemonicParsing="false" onAction="#recompute" selected="true" text="High and low point">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="option" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="lr" mnemonicParsing="false" onAction="#recompute" text="Linear regression" toggleGroup="$option" />
+                  <HBox spacing="6.0">
+                     <children>
+                        <Label text="Y =" />
+                        <Label fx:id="equation" text="a + bX" />
+                     </children>
+                  </HBox>
+                  <HBox spacing="6.0">
+                     <children>
+                        <Label text="fixed =" />
+                        <Label fx:id="fixed" text="a" />
+                     </children>
+                  </HBox>
+                  <HBox spacing="6.0">
+                     <children>
+                        <Label text="variable/unit =" />
+                        <Label fx:id="variablePerUnit" text="b" />
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets top="5.0" />
+               </padding>
+            </VBox>
+         </children>
+      </VBox>
    </left>
+   <padding>
+      <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+   </padding>
 </BorderPane>

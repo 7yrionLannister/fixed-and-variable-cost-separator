@@ -1,22 +1,29 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
-import java.util.ArrayList;
+
+import javafx.collections.ObservableList;
+
 
 public class Separator {
-	private ArrayList<Record> accountingRecords;
+	private ObservableList<Record> accountingRecords;
 
-	public Separator() {
-		accountingRecords = new ArrayList<>();
+	public Separator(ObservableList<Record> records) {
+		accountingRecords = records;
 	}
 
 	/**Overwrite existing assigned keys if they overlap
 	 * */
-	public void addRecord(int activityLevel, double totalCost) {
+	public void addRecord(double activityLevel, double totalCost) {
 		accountingRecords.add(new Record(activityLevel, totalCost));
 		Collections.sort(accountingRecords);
+	}
+	
+	public void removeRecord(double activityLevel, double totalCost) {
+		accountingRecords.remove(new Record(activityLevel, totalCost));
 	}
 
 	public double[] highAndLowPoint() {
@@ -35,7 +42,7 @@ public class Separator {
 		Collection<Double> X = new ArrayList<>();
 		Collection<Double> Y = new ArrayList<>();
 		for(Record r : accountingRecords) {
-			X.add(r.getActivityLevel()*1.0);
+			X.add(r.getActivityLevel());
 			Y.add(r.getTotalCost());
 		}
 		double pairs = X.size();
@@ -67,5 +74,23 @@ public class Separator {
 			dp += iterator1.next().doubleValue()*iterator2.next().doubleValue();
 		}
 		return dp;
+	}
+
+	public void clear() {
+		accountingRecords.clear();
+	}
+
+	public ObservableList<Record> getAccountingRecords() {
+		return accountingRecords;
+	}
+	
+	public double[] getBudgetedHighPoint(double fixed, double variable) {
+		Record high = accountingRecords.get(accountingRecords.size()-1);
+		return new double[] {high.getActivityLevel(), fixed + high.getActivityLevel()*variable};
+	}
+	
+	public double[] getBudgetedLowPoint(double fixed, double variable) {
+		Record low = accountingRecords.get(0);
+		return new double[] {low.getActivityLevel(), fixed + low.getActivityLevel()*variable};
 	}
 }
