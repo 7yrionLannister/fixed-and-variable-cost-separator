@@ -47,10 +47,9 @@
                </children>
             </HBox>
             <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#include" text="Include" />
-            <HBox prefWidth="200.0">
+            <HBox maxWidth="1.7976931348623157E308" prefWidth="200.0">
                <children>
-                  <TextField fx:id="activityLevelOut" onKeyTyped="#onlyIntegers" promptText="Activity level" />
-                  <TextField fx:id="costOut" onKeyTyped="#onlyIntegers" promptText="Cost" />
+                  <TextField fx:id="activityLevelOut" maxWidth="1.7976931348623157E308" minWidth="220.0" promptText="Activity level" />
                </children>
             </HBox>
             <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#exclude" text="Exclude" />

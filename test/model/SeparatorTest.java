@@ -14,14 +14,6 @@ public class SeparatorTest {
 	private double lowCost;
 
 	private void setupStage1() {
-		sep = null;
-	}
-
-	private void setupStage2() {
-		sep = new Separator(FXCollections.observableArrayList());
-	}
-
-	private void setupStage3() {
 		sep = new Separator(FXCollections.observableArrayList());
 		lowActivity = 1;
 		lowCost = 1;
@@ -39,7 +31,7 @@ public class SeparatorTest {
 	
 	@Test
 	public void highAndLowPointTest() {
-		setupStage3();
+		setupStage1();
 		double expectedVariablePerUnit = (highCost-lowCost)/(highActivity-lowActivity);
 		double expectedFixed = lowCost - expectedVariablePerUnit*lowActivity;
 		double[] halp = sep.highAndLowPoint();
@@ -50,7 +42,7 @@ public class SeparatorTest {
 
 	@Test
 	public void linearRegression() {
-		setupStage3();
+		setupStage1();
 		//values found using linear regression in Desmos.com/calculator, a reliable online graphing calculator
 		double expectedFixed = 0.545454545455;
 		double expectedVariablePerUnit = 0.636363636364;

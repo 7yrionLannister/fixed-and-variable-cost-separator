@@ -41,9 +41,6 @@ public class Controller {
 	private TextField activityLevelOut;
 
 	@FXML
-	private TextField costOut;
-
-	@FXML
 	private TableView<Record> table;
 
 	@FXML
@@ -76,8 +73,8 @@ public class Controller {
 
 	@FXML
 	public void exclude(ActionEvent event) {
-		if(!activityLevelOut.getText().isEmpty() && !costOut.getText().isEmpty()) {
-			separator.removeRecord(Double.parseDouble(activityLevelOut.getText().replace(',', '.')), Double.parseDouble(costOut.getText().replace(',', '.')));
+		if(!activityLevelOut.getText().isEmpty()) {
+			separator.removeRecord(Double.parseDouble(activityLevelOut.getText().replace(',', '.')));
 		}
 		refresh();
 	}
@@ -86,6 +83,8 @@ public class Controller {
 	public void include(ActionEvent event) {
 		if(!activityLevelIn.getText().isEmpty() && !costIn.getText().isEmpty()) {
 			separator.addRecord(Double.parseDouble(activityLevelIn.getText().replace(',', '.')), Double.parseDouble(costIn.getText().replace(',', '.')));
+			activityLevelIn.setText("");
+			costIn.setText("");
 		}
 		refresh();
 	}

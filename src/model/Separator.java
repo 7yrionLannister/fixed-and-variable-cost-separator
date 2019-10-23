@@ -18,12 +18,13 @@ public class Separator {
 	/**Overwrite existing assigned keys if they overlap
 	 * */
 	public void addRecord(double activityLevel, double totalCost) {
+		removeRecord(activityLevel);
 		accountingRecords.add(new Record(activityLevel, totalCost));
 		Collections.sort(accountingRecords);
 	}
 	
-	public void removeRecord(double activityLevel, double totalCost) {
-		accountingRecords.remove(new Record(activityLevel, totalCost));
+	public void removeRecord(double activityLevel) {
+		accountingRecords.remove(new Record(activityLevel, Integer.MAX_VALUE));
 	}
 
 	public double[] highAndLowPoint() {

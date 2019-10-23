@@ -28,7 +28,7 @@ public class Record implements Comparable<Record>{
 	@Override
 	public boolean equals(Object another) {
 		Record a = (Record)another; //throws exception if another is not a record
-		return a.activityLevel == activityLevel && a.totalCost == totalCost;
+		return a.activityLevel == activityLevel;
 	}
 	@Override
 	public int compareTo(Record r) {
