@@ -68,13 +68,14 @@ public class Controller {
 	public void initialize() {
 		activityColumn.setCellValueFactory(new PropertyValueFactory<Record, Number>("activityLevel"));
 		costColumn.setCellValueFactory(new PropertyValueFactory<Record, Number>("totalCost"));
-		separator = new Separator(table.getItems());
+		separator = new Separator();
 	}
 
 	@FXML
 	public void exclude(ActionEvent event) {
 		if(!activityLevelOut.getText().isEmpty()) {
 			separator.removeRecord(Double.parseDouble(activityLevelOut.getText().replace(',', '.')));
+			activityLevelOut.setText("");
 		}
 		refresh();
 	}
@@ -113,7 +114,8 @@ public class Controller {
 		Series<Double, Double> series = new XYChart.Series<>();
 		series.setName("Records");
 		ObservableList<Data<Double, Double>> list = series.getData();
-		for(Record record : table.getItems()) {
+		
+		for(Record record : separator.getAccountingRecords()) {
 			list.add(new XYChart.Data<Double, Double>(record.getActivityLevel(), record.getTotalCost()));
 		}
 		ObservableList<Series<Double, Double>> ol = FXCollections.observableArrayList();
@@ -146,5 +148,8 @@ public class Controller {
 			variablePerUnit.setText("b");
 			equation.setText("a + bX");
 		}
+		
+		table.getItems().clear();
+		table.setItems(FXCollections.observableArrayList(separator.getAccountingRecords()));
 	}
 }

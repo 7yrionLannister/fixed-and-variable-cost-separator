@@ -5,14 +5,15 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 
 public class Separator {
-	private ObservableList<Record> accountingRecords;
+	private ArrayList<Record> accountingRecords;
 
-	public Separator(ObservableList<Record> records) {
-		accountingRecords = records;
+	public Separator() {
+		accountingRecords = new ArrayList<Record>();
 	}
 
 	/**Overwrite existing assigned keys if they overlap
@@ -81,7 +82,7 @@ public class Separator {
 		accountingRecords.clear();
 	}
 
-	public ObservableList<Record> getAccountingRecords() {
+	public ArrayList<Record> getAccountingRecords() {
 		return accountingRecords;
 	}
 	

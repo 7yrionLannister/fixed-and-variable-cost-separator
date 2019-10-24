@@ -14,7 +14,7 @@ public class SeparatorTest {
 	private double lowCost;
 
 	private void setupStage1() {
-		sep = new Separator(FXCollections.observableArrayList());
+		sep = new Separator();
 		lowActivity = 1;
 		lowCost = 1;
 		highActivity = 14;
