@@ -14,8 +14,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="562.0" prefWidth="916.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.Controller">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.Controller">
    <center>
       <StackPane BorderPane.alignment="CENTER">
          <children>
@@ -46,14 +47,14 @@
                   <TextField fx:id="costIn" onKeyTyped="#onlyIntegers" promptText="Cost" />
                </children>
             </HBox>
-            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#include" text="Include" />
+            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#include" text="Add" />
             <HBox maxWidth="1.7976931348623157E308" prefWidth="200.0">
                <children>
                   <TextField fx:id="activityLevelOut" maxWidth="1.7976931348623157E308" minWidth="220.0" promptText="Activity level" />
                </children>
             </HBox>
-            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#exclude" text="Exclude" />
-            <VBox spacing="15.0">
+            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#exclude" text="Remove" />
+            <VBox spacing="10.0">
                <children>
                   <RadioButton fx:id="halp" mnemonicParsing="false" onAction="#recompute" selected="true" text="High and low point">
                      <toggleGroup>
@@ -63,20 +64,48 @@
                   <RadioButton fx:id="lr" mnemonicParsing="false" onAction="#recompute" text="Linear regression" toggleGroup="$option" />
                   <HBox spacing="6.0">
                      <children>
-                        <Label text="Y =" />
-                        <Label fx:id="equation" text="a + bX" />
+                        <Label text="Y =">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font></Label>
+                        <Label fx:id="fixedE" text="a +">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font></Label>
+                        <Label fx:id="variablePerUnitE" text="b">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label text="X">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
                      </children>
                   </HBox>
                   <HBox spacing="6.0">
                      <children>
-                        <Label text="fixed =" />
-                        <Label fx:id="fixed" text="a" />
+                        <Label text="fixed =">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font></Label>
+                        <Label fx:id="fixed" text="a">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font></Label>
                      </children>
                   </HBox>
                   <HBox spacing="6.0">
                      <children>
-                        <Label text="variable/unit =" />
-                        <Label fx:id="variablePerUnit" text="b" />
+                        <Label text="variable =">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font></Label>
+                        <Label fx:id="variablePerUnit" text="b">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font></Label>
                      </children>
                   </HBox>
                </children>
@@ -84,6 +113,8 @@
                   <Insets top="5.0" />
                </padding>
             </VBox>
+            <TextField fx:id="budgetActivityLevel" onKeyTyped="#onlyIntegers" promptText="Activity level" />
+            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#budget" text="Budget" />
          </children>
       </VBox>
    </left>

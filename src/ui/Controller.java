@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
@@ -16,6 +17,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import model.Record;
 import model.Separator;
 
@@ -51,15 +54,21 @@ public class Controller {
 
 	@FXML
 	private Label variablePerUnit;
-	
+
 	@FXML
-	private Label equation;
+	private Label fixedE;
+
+	@FXML
+	private Label variablePerUnitE;
 
 	@FXML
 	private RadioButton halp;
 
 	@FXML
 	private RadioButton lr;
+
+	@FXML
+	private TextField budgetActivityLevel;
 
 	private Separator separator;
 
@@ -114,7 +123,7 @@ public class Controller {
 		Series<Double, Double> series = new XYChart.Series<>();
 		series.setName("Records");
 		ObservableList<Data<Double, Double>> list = series.getData();
-		
+
 		for(Record record : separator.getAccountingRecords()) {
 			list.add(new XYChart.Data<Double, Double>(record.getActivityLevel(), record.getTotalCost()));
 		}
@@ -122,15 +131,16 @@ public class Controller {
 		ol.add(series);
 		chart.setData(ol);
 
+		fixed.setTextFill(Color.BLACK);
+		variablePerUnit.setTextFill(Color.BLACK);
 		if(separator.getAccountingRecords().size() > 1) {
-			double[] fav;
 			if(option.getSelectedToggle() == halp) {
-				fav = separator.highAndLowPoint();
+				separator.presupuestalEquationByHighAndLowPoint();;
 			} else {
-				fav = separator.linearRegression();
+				separator.presupuestalEquationByLinearRegression();;
 			}
-			double[] low = separator.getBudgetedLowPoint(fav[0], fav[1]);
-			double[] high = separator.getBudgetedHighPoint(fav[0], fav[1]);
+			double[] low = separator.getBudgetedLowPoint();
+			double[] high = separator.getBudgetedHighPoint();
 
 			series = new XYChart.Series<>();
 			series.setName("Trend line");
@@ -139,17 +149,47 @@ public class Controller {
 			list.add(new XYChart.Data<Double, Double>(high[0], high[1]));
 			ol.add(series);
 			chart.setData(ol);
-			
-			fixed.setText(fav[0]+"");
-			variablePerUnit.setText(fav[1]+"");
-			equation.setText(fav[0] + " + " + fav[1] + "X");
+
+			String f = String.format("%.2f", separator.getFixed());
+			String v = String.format("%.2f", separator.getVariablePerUnit());
+			if(f.contains("-")) {
+				fixed.setTextFill(Color.RED);
+				fixed.setText("($"+f.replace("-", "")+")");
+			} else {
+				fixed.setText("$"+f);
+			}
+			if(v.contains("-")) {
+				variablePerUnit.setTextFill(Color.RED);
+				variablePerUnit.setText("($"+v+"/unit)");
+			} else {
+				variablePerUnit.setText("$"+v+"/unit");
+			}
 		} else {
 			fixed.setText("a");
 			variablePerUnit.setText("b");
-			equation.setText("a + bX");
 		}
-		
+
+		variablePerUnitE.setTextFill(variablePerUnit.getTextFill());
+		variablePerUnitE.setText(variablePerUnit.getText());
+		fixedE.setTextFill(fixed.getTextFill());
+		fixedE.setText(fixed.getText() + " +");
+
 		table.getItems().clear();
 		table.setItems(FXCollections.observableArrayList(separator.getAccountingRecords()));
+	}
+
+	@FXML
+	public void budget(ActionEvent event) {
+		if(!budgetActivityLevel.getText().isEmpty()) {
+			Stage popUp = new Stage();
+			Label l = new Label("Cost estimate for an activity level of "+budgetActivityLevel.getText()+": \n ~~~> $"+String.format("%.2f", separator.getCostEstimate(Double.parseDouble(budgetActivityLevel.getText().replace(',', '.')))));
+			l.setStyle("-fx-font-size: 20; -fx-font-weight: bold;");
+			Scene scene = new Scene(l);
+			popUp.setWidth(550);
+			popUp.setHeight(150);
+			popUp.setScene(scene);
+			popUp.setTitle("Budget "+budgetActivityLevel.getText());
+			popUp.showAndWait();
+		}
 	}
 }

@@ -5,13 +5,13 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 
 public class Separator {
 	private ArrayList<Record> accountingRecords;
-
+	private boolean trustedEquation;
+	private double fixed;
+	private double variablePerUnit;
+	
 	public Separator() {
 		accountingRecords = new ArrayList<Record>();
 	}
@@ -28,19 +28,17 @@ public class Separator {
 		accountingRecords.remove(new Record(activityLevel, Integer.MAX_VALUE));
 	}
 
-	public double[] highAndLowPoint() {
+	public void presupuestalEquationByHighAndLowPoint() {
 		double lowActivity = accountingRecords.get(0).getActivityLevel();
 		double lowCost = accountingRecords.get(0).getTotalCost();
 		double highActivity = accountingRecords.get(accountingRecords.size()-1).getActivityLevel();
 		double highCost = accountingRecords.get(accountingRecords.size()-1).getTotalCost();
 
-		double variablePerUnit = (highCost-lowCost)/(highActivity-lowActivity);
-		double fixed = highCost - variablePerUnit*highActivity;
-
-		return new double[] {fixed, variablePerUnit};
+		variablePerUnit = (highCost-lowCost)/(highActivity-lowActivity);
+		fixed = highCost - variablePerUnit*highActivity;
 	}
 
-	public double[] linearRegression() {
+	public void presupuestalEquationByLinearRegression() {
 		Collection<Double> X = new ArrayList<>();
 		Collection<Double> Y = new ArrayList<>();
 		for(Record r : accountingRecords) {
@@ -54,10 +52,8 @@ public class Separator {
 		double x2Sum = dotProduct(X, X);
 		double xSum2 = xSum*xSum;
 
-		double fixed = (ySum*x2Sum - xSum*xySum)/(pairs*x2Sum - xSum2);
-		double variablePerUnit = (pairs*xySum - xSum*ySum)/(pairs*x2Sum - xSum2);
-
-		return new double[] {fixed, variablePerUnit};
+		fixed = (ySum*x2Sum - xSum*xySum)/(pairs*x2Sum - xSum2);
+		variablePerUnit = (pairs*xySum - xSum*ySum)/(pairs*x2Sum - xSum2);
 	}
 
 	public <N extends Number> double sum(Collection<N> nums) {
@@ -86,13 +82,33 @@ public class Separator {
 		return accountingRecords;
 	}
 	
-	public double[] getBudgetedHighPoint(double fixed, double variable) {
+	public double[] getBudgetedHighPoint() {
 		Record high = accountingRecords.get(accountingRecords.size()-1);
-		return new double[] {high.getActivityLevel(), fixed + high.getActivityLevel()*variable};
+		return new double[] {high.getActivityLevel(), fixed + high.getActivityLevel()*variablePerUnit};
 	}
 	
-	public double[] getBudgetedLowPoint(double fixed, double variable) {
+	public double[] getBudgetedLowPoint() {
 		Record low = accountingRecords.get(0);
-		return new double[] {low.getActivityLevel(), fixed + low.getActivityLevel()*variable};
+		return new double[] {low.getActivityLevel(), fixed + low.getActivityLevel()*variablePerUnit};
+	}
+	
+	public double getCostEstimate(double activityLevel) {
+		return fixed + variablePerUnit*activityLevel;
+	}
+
+	public double getFixed() {
+		return fixed;
+	}
+
+	public void setFixed(double fixed) {
+		this.fixed = fixed;
+	}
+
+	public double getVariablePerUnit() {
+		return variablePerUnit;
+	}
+
+	public boolean isTrustedEquation() {
+		return trustedEquation;
 	}
 }
