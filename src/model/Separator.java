@@ -100,10 +100,6 @@ public class Separator {
 		return fixed;
 	}
 
-	public void setFixed(double fixed) {
-		this.fixed = fixed;
-	}
-
 	public double getVariablePerUnit() {
 		return variablePerUnit;
 	}
