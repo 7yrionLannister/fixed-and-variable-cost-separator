@@ -34,7 +34,7 @@ public class SeparatorTest {
 		setupStage1();
 		double expectedVariablePerUnit = (highCost-lowCost)/(highActivity-lowActivity);
 		double expectedFixed = lowCost - expectedVariablePerUnit*lowActivity;
-		sep.presupuestalEquationByHighAndLowPoint();;
+		sep.budgetFunctionByHighAndLowPoint();;
 		//margin of error = 0.00000000001
 		assertTrue(Math.abs(expectedFixed - sep.getFixed()) < 0.00000000001, "The fixed cost is not correct");
 		assertTrue(Math.abs(expectedVariablePerUnit - sep.getVariablePerUnit()) < 0.00000000001, "The variable cost per unit is not correct");
@@ -47,7 +47,7 @@ public class SeparatorTest {
 		double expectedFixed = 0.545454545455;
 		double expectedVariablePerUnit = 0.636363636364;
 		
-		sep.presupuestalEquationByLinearRegression();
+		sep.budgetFunctionByLinearRegression();
 		assertTrue(Math.abs(expectedFixed-sep.getFixed()) < 0.00000000001);
 		assertTrue(Math.abs(expectedVariablePerUnit-sep.getVariablePerUnit()) < 0.00000000001);
 	}

@@ -25,54 +25,87 @@ import model.Separator;
 
 public class Controller {
 
+	/**Line chart that is going to represent the records and the budget function
+	 * */
 	@FXML
 	private LineChart<Double, Double> chart;
 
+	/**Column of the table containing information about the activity level of the records
+	 * */
 	@FXML
 	private TableColumn<Record, Number> activityColumn;
 
+	/**Column of the table containing information about the total cost of the records
+	 * */
 	@FXML
 	private TableColumn<Record, Number> costColumn;
 
+	/**The text field that receives input for the activity level of the record to be added
+	 * */
 	@FXML
 	private TextField activityLevelIn;
 
+	/**The text field that receives input for the cost of the record to be added
+	 * */
 	@FXML
 	private TextField costIn;
 
+	/**The text field that receives input for the activity level of the record to be removed
+	 * */
 	@FXML
 	private TextField activityLevelOut;
 
+	/**Table containing the attributes of the records in two separate columns
+	 * */
 	@FXML
 	private TableView<Record> table;
 
+	/**Toggle group containing the radio buttons representing the ways the budget function can be computed
+	 * */
 	@FXML
 	private ToggleGroup option;
 
+	/**Label containing the budgeted fixed cost
+	 * */
 	@FXML
 	private Label fixed;
 
+	/**Label containing the budgeted variable cost per unit
+	 */
 	@FXML
 	private Label variablePerUnit;
 
+	/**Label containing the budgeted fixed cost
+	 * */
 	@FXML
 	private Label fixedE;
 
+	/**Label containing the budgeted variable cost per unit
+	 */
 	@FXML
 	private Label variablePerUnitE;
 
+	/**Radio button representing the high and low point method
+	 * */
 	@FXML
 	private RadioButton halp;
 
+	/**Radio button representing the linear regression method
+	 * */
 	@FXML
 	private RadioButton lr;
 
+	/**Button that triggers the high and low point or linear regression method to separate the components of the cost
+	 * */
 	@FXML
 	private TextField budgetActivityLevel;
 
+	/**This separator is in charge of all the logic of the problem(finding budget functions)
+	 * */
 	private Separator separator;
 
-	//TODO quitar las parametrizaciones si causan problemas
+	/**Set the initial state of the GUI components and initialize the Separator
+	 * */
 	@FXML
 	public void initialize() {
 		activityColumn.setCellValueFactory(new PropertyValueFactory<Record, Number>("activityLevel"));
@@ -80,6 +113,8 @@ public class Controller {
 		separator = new Separator();
 	}
 
+	/**Remove a record by specifying its activity level
+	 * */
 	@FXML
 	public void exclude(ActionEvent event) {
 		if(!activityLevelOut.getText().isEmpty()) {
@@ -89,6 +124,8 @@ public class Controller {
 		refresh();
 	}
 
+	/**Add a new record by specifying its activity level and its associated cost
+	 * */
 	@FXML
 	public void include(ActionEvent event) {
 		if(!activityLevelIn.getText().isEmpty() && !costIn.getText().isEmpty()) {
@@ -99,12 +136,16 @@ public class Controller {
 		refresh();
 	}
 
+	/**Clear the register
+	 * */
 	@FXML
 	public void clear(ActionEvent event) {
 		separator.clear();
 		refresh();
 	}
 
+	/**Verify if an illegal numerical character is being added to the text fields and ignore them if it's the case
+	 * */
 	@FXML
 	public void onlyIntegers(KeyEvent event) {
 		char input =event.getCharacter().charAt(0);
@@ -114,11 +155,15 @@ public class Controller {
 		}
 	}
 
+	/**This method recomputes the budget function every time the user selects a radio button
+	 * */
 	@FXML
 	public void recompute(ActionEvent event) {
 		refresh();
 	}
 
+	/**Refresh the GUI and the budget function
+	 * */
 	private void refresh() {
 		Series<Double, Double> series = new XYChart.Series<>();
 		series.setName("Records");
@@ -135,9 +180,9 @@ public class Controller {
 		variablePerUnit.setTextFill(Color.BLACK);
 		if(separator.getAccountingRecords().size() > 1) {
 			if(option.getSelectedToggle() == halp) {
-				separator.presupuestalEquationByHighAndLowPoint();;
+				separator.budgetFunctionByHighAndLowPoint();;
 			} else {
-				separator.presupuestalEquationByLinearRegression();;
+				separator.budgetFunctionByLinearRegression();;
 			}
 			double[] low = separator.getBudgetedLowPoint();
 			double[] high = separator.getBudgetedHighPoint();
@@ -178,6 +223,8 @@ public class Controller {
 		table.setItems(FXCollections.observableArrayList(separator.getAccountingRecords()));
 	}
 
+	/**This method triggers the budget function in the Separator class and places the result in a pop-up window 
+	 * */
 	@FXML
 	public void budget(ActionEvent event) {
 		if(!budgetActivityLevel.getText().isEmpty()) {
