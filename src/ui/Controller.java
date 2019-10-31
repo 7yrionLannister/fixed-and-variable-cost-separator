@@ -169,7 +169,7 @@ public class Controller {
 	 * */
 	private void refresh() {
 		Series<Double, Double> series = new XYChart.Series<>();
-		series.setName("Records");
+		series.setName("Registros");
 		ObservableList<Data<Double, Double>> list = series.getData();
 
 		for(Record record : separator.getAccountingRecords()) {
@@ -191,7 +191,7 @@ public class Controller {
 			double[] high = separator.getBudgetedHighPoint();
 
 			series = new XYChart.Series<>();
-			series.setName("Trend line");
+			series.setName("Linea de tendencia");
 			list = series.getData();
 			list.add(new XYChart.Data<Double, Double>(low[0], low[1]));
 			list.add(new XYChart.Data<Double, Double>(high[0], high[1]));
@@ -235,11 +235,12 @@ public class Controller {
 			Label l = new Label("El costo estimado para un nivel de actividad de "+budgetActivityLevel.getText()+" unidades es: \n ~~~> $"+String.format("%.2f", separator.getCostEstimate(Double.parseDouble(budgetActivityLevel.getText().replace(',', '.')))));
 			l.setStyle("-fx-font-size: 20; -fx-font-weight: bold;");
 			Scene scene = new Scene(l);
-			popUp.setWidth(620);
+			popUp.setWidth(640);
 			popUp.setHeight(150);
 			popUp.setScene(scene);
 			popUp.setTitle("Presupuesto ("+budgetActivityLevel.getText()+" unidades)");
 			popUp.getIcons().add(new Image(new File("icon.svg.png").toURI().toString()));
+			popUp.initOwner(table.getScene().getWindow());
 			popUp.showAndWait();
 		}
 	}
