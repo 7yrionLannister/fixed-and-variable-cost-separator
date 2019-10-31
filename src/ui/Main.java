@@ -21,7 +21,7 @@ public class Main extends Application {
 		Parent root = FXMLLoader.load(getClass().getResource("vs.fxml"));
 		Scene s = new Scene(root);
 		primaryStage.setScene(s);
-		primaryStage.setTitle("Fixed and variable cost");
+		primaryStage.setTitle("Presupuetar");
 		primaryStage.getIcons().add(new Image(new File("icon.svg.png").toURI().toString()));
 		primaryStage.show();
 	}

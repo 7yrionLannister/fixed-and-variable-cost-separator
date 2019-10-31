@@ -16,16 +16,16 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.Controller">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.Controller">
    <center>
       <StackPane BorderPane.alignment="CENTER">
          <children>
-            <LineChart fx:id="chart" title="Cost behavior">
+            <LineChart fx:id="chart" title="Comportamiento del costo">
               <xAxis>
-                <NumberAxis label="Activity level (units)" side="BOTTOM" />
+                <NumberAxis label="Nivel de actividad (unidades)" side="BOTTOM" />
               </xAxis>
               <yAxis>
-                <NumberAxis label="Cost ($)" side="LEFT" />
+                <NumberAxis label="Costo ($)" side="LEFT" />
               </yAxis>
             </LineChart>
          </children>
@@ -36,32 +36,32 @@
          <children>
             <TableView fx:id="table" editable="true" prefWidth="222.0">
               <columns>
-                <TableColumn fx:id="activityColumn" maxWidth="-1.0" minWidth="120.0" prefWidth="-1.0" text="Activity level" />
-                <TableColumn fx:id="costColumn" maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" text="Cost" />
+                <TableColumn fx:id="activityColumn" maxWidth="-1.0" minWidth="120.0" prefWidth="-1.0" text="Nivel de actividad" />
+                <TableColumn fx:id="costColumn" maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" text="Costo" />
               </columns>
             </TableView>
-            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#clear" text="Clear" />
+            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#clear" text="Limpiar" />
             <HBox prefWidth="200.0">
                <children>
-                  <TextField fx:id="activityLevelIn" onKeyTyped="#onlyIntegers" promptText="Activity level" />
-                  <TextField fx:id="costIn" onKeyTyped="#onlyIntegers" promptText="Cost" />
+                  <TextField fx:id="activityLevelIn" onKeyTyped="#onlyIntegers" promptText="Nivel de actividad" />
+                  <TextField fx:id="costIn" onKeyTyped="#onlyIntegers" promptText="Costo" />
                </children>
             </HBox>
-            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#include" text="Add" />
+            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#include" text="Añadir" />
             <HBox maxWidth="1.7976931348623157E308" prefWidth="200.0">
                <children>
-                  <TextField fx:id="activityLevelOut" maxWidth="1.7976931348623157E308" minWidth="220.0" promptText="Activity level" />
+                  <TextField fx:id="activityLevelOut" maxWidth="1.7976931348623157E308" minWidth="220.0" promptText="Nivel de actividad" />
                </children>
             </HBox>
-            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#exclude" text="Remove" />
+            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#exclude" text="Eliminar" />
             <VBox spacing="10.0">
                <children>
-                  <RadioButton fx:id="halp" mnemonicParsing="false" onAction="#recompute" selected="true" text="High and low point">
+                  <RadioButton fx:id="halp" mnemonicParsing="false" onAction="#recompute" selected="true" text="Punto alto y punto bajo">
                      <toggleGroup>
                         <ToggleGroup fx:id="option" />
                      </toggleGroup>
                   </RadioButton>
-                  <RadioButton fx:id="lr" mnemonicParsing="false" onAction="#recompute" text="Linear regression" toggleGroup="$option" />
+                  <RadioButton fx:id="lr" mnemonicParsing="false" onAction="#recompute" text="Minimos cuadrados" toggleGroup="$option" />
                   <HBox spacing="6.0">
                      <children>
                         <Label text="Y =">
@@ -86,7 +86,7 @@
                   </HBox>
                   <HBox spacing="6.0">
                      <children>
-                        <Label text="fixed =">
+                        <Label text="fijo =">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font></Label>
@@ -113,8 +113,8 @@
                   <Insets top="5.0" />
                </padding>
             </VBox>
-            <TextField fx:id="budgetActivityLevel" onKeyTyped="#onlyIntegers" promptText="Activity level" />
-            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#budget" text="Budget" />
+            <TextField fx:id="budgetActivityLevel" onKeyTyped="#onlyIntegers" promptText="Nivel de actividad" />
+            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#budget" text="Presupuestar" />
          </children>
       </VBox>
    </left>

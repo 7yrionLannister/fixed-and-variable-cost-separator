@@ -1,5 +1,7 @@
 package ui;
 
+import java.io.File;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,6 +18,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -205,9 +208,9 @@ public class Controller {
 			}
 			if(v.contains("-")) {
 				variablePerUnit.setTextFill(Color.RED);
-				variablePerUnit.setText("($"+v+"/unit)");
+				variablePerUnit.setText("($"+v+"/unidad)");
 			} else {
-				variablePerUnit.setText("$"+v+"/unit");
+				variablePerUnit.setText("$"+v+"/unidad");
 			}
 		} else {
 			fixed.setText("a");
@@ -229,13 +232,14 @@ public class Controller {
 	public void budget(ActionEvent event) {
 		if(!budgetActivityLevel.getText().isEmpty()) {
 			Stage popUp = new Stage();
-			Label l = new Label("Cost estimate for an activity level of "+budgetActivityLevel.getText()+": \n ~~~> $"+String.format("%.2f", separator.getCostEstimate(Double.parseDouble(budgetActivityLevel.getText().replace(',', '.')))));
+			Label l = new Label("El costo estimado para un nivel de actividad de "+budgetActivityLevel.getText()+" unidades es: \n ~~~> $"+String.format("%.2f", separator.getCostEstimate(Double.parseDouble(budgetActivityLevel.getText().replace(',', '.')))));
 			l.setStyle("-fx-font-size: 20; -fx-font-weight: bold;");
 			Scene scene = new Scene(l);
-			popUp.setWidth(550);
+			popUp.setWidth(620);
 			popUp.setHeight(150);
 			popUp.setScene(scene);
-			popUp.setTitle("Budget "+budgetActivityLevel.getText());
+			popUp.setTitle("Presupuesto ("+budgetActivityLevel.getText()+" unidades)");
+			popUp.getIcons().add(new Image(new File("icon.svg.png").toURI().toString()));
 			popUp.showAndWait();
 		}
 	}
